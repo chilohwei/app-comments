@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="https://chilohdata.s3.bitiful.net/avatar.png">
+<title>AppStore应用评论获取</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f7f7f7;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    select, input[type="number"], button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box; /* Prevents padding from expanding the width */
+    }
+    button {
+        background: #5cb85c;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #4cae4c;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>AppStore应用评论获取</h1>
+        <form method="post" action="/fetch_reviews">
+            <div class="form-group">
+                <label for="appid">应用ID:</label>
+                <input type="text" id="appid" name="appid" required>
+            </div>
+            <div class="form-group">
+                <label for="country">选择国家:</label>
+                <select name="country" id="country">
+                    <option value="us">美国</option>
+                    <option value="cn">中国</option>
+                    <!-- 可以根据需要添加更多国家选项 -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="start_page">开始页码:</label>
+                <input type="number" id="start_page" name="start_page" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="end_page">结束页码:</label>
+                <input type="number" id="end_page" name="end_page" min="1" required>
+            </div>
+            <button type="submit">获取评论</button>
+        </form>
+    </div>
+</body>
+</html>
