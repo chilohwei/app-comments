@@ -7,9 +7,22 @@ import io
 
 app = Flask(__name__)
 
+LANGUAGES = {
+    '简体中文': 'cn',
+    '繁体中文': 'tw',
+    '英语': 'us',
+    '日语': 'jp',
+    '法语': 'fr',
+    '德语': 'de',
+    '西班牙语': 'es',
+    '葡萄牙语': 'pt',
+    '韩语': 'kr',
+    '阿拉伯语': 'sa'
+}
+
 # 获取评论的函数
 def get_reviews(appid, page, country):
-    url = "https://itunes.apple.com/rss/customerreviews/page={}/id={}/sortby=mostrecent/json?l=en&cc={}".format(page, appid, country)
+    url = "https://itunes.apple.com/{}/rss/customerreviews/page={}/id={}/sortby=mostrecent/json".format(country, page, appid)
     response = urllib.request.urlopen(url)
     data = json.loads(response.read().decode())
     if "entry" in data["feed"]:
@@ -30,19 +43,19 @@ def sentiment_analysis(text):
 # 主页面路由
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', languages=LANGUAGES)
 
 # 获取评论并下载为Excel的路由
 @app.route('/fetch_reviews', methods=['POST'])
 def fetch_reviews():
     appid = request.form['appid']
-    country = request.form['country']
+    language = request.form['language']
     start_page = int(request.form['start_page'])
     end_page = int(request.form['end_page'])
     
     result = []
     for page in range(start_page, end_page + 1):
-        reviews = get_reviews(appid, page, country)
+        reviews = get_reviews(appid, page, LANGUAGES[language])
         for review in reviews:
             if isinstance(review, dict):
                 date = review["updated"]["label"]
@@ -75,7 +88,6 @@ def fetch_reviews():
         download_name='comments.xlsx'
     )
 
-# 启动Flask应用
 # 启动Flask应用
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=False, port=8000) 
