@@ -16,6 +16,11 @@ services:
       - "8000:8000"
 ```
 
+## 教程
+1. 搜索“xx appstore”，例如：gitmind appstore。
+2. 获取应用ID。例如：[https://apps.apple.com/us/app/gitmind-ai-powered-mind-map/id1566810191](https://apps.apple.com/us/app/gitmind-ai-powered-mind-map/id1566810191)，“1566810191”部分即是应用ID号。
+3. 填入应用ID号，选择“语言”，选择要抓取的页数。点击“获取评论”按钮，会拿到一个comments.xlsx的表格。
+
 ## 声明
 
 本项目是由个人（Chiloh）为了学习和研究目的开发的工具，旨在探索与研究与 GPT 协作的共创能力。
